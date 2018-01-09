@@ -3,40 +3,44 @@ import java.util.Scanner;
 public class Encriotion {
 	
 	public static void main (String[] args) {
-		Scanner input = new Scanner(System.in);
 		int key = keyExchage();
-		System.out.println("Are you Encrypting or Decrypting?");
+		Scanner input = new Scanner(System.in);
 		while(true) {
-			switch(input.nextLine().charAt(0)) {
-			case 'D':
+			System.out.println("Are you Encrypting(1) or Decrypting(2)?");
+			int state = input.nextInt();
+			switch(state) {
+			case 2:
 				System.out.println("What is the message are you decrypting");
-				int[] cript = stringToIntAray(input.nextLine());
-				System.out.println("the message is: " + intToString(Decryptor(cript, key)));
+				String mesR = "";
+				mesR = input.next();
+				int[] cript = stringToIntAray(mesR);
+				System.out.println("the message is: " + Decryptor(cript, key));
 				break;
-			case 'E':
+			case 1:
 				System.out.println("What is the message would you like to encrypt?");
 				String mes = input.nextLine();
-				System.out.println("The encrypted message is:" + arrayDisplay(Encriptor(stringToInt(mes),key)));
+				System.out.println("The encrypted message is:" + Encriptor(stringToInt(mes),key));
+				break;
 			}
 		}
 	}
 	
-	public static int[] Encriptor(int[] input, int key) {
+	public static String Encriptor(int[] input, int key) {
 		int[] output = new int[input.length];
 		
 		for(int i = 0; i < input.length; i++) {
 			output[i] = input[i] * key;
 		}
-		return output;
+		return intToString(output);
 	}
 	
-	public static int[] Decryptor(int[] input, int key) {
+	public static String Decryptor(int[] input, int key) {
 		int[] output = new int[input.length];
 		
 		for(int i = 0; i < input.length; i++) {
 			output[i] = input[i] / key;
 		}
-		return output;
+		return arrayDisplay(output);
 	}
 	
 	public static int[] stringToIntAray(String input) {
@@ -109,7 +113,6 @@ public class Encriotion {
 		int key = (int) (Math.pow(bg, a) % n);
 		
 		System.out.println("The key has been set");
-		input.close();
 		
 		return key;
 	}
